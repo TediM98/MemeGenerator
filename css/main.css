@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+}
+
+/* HEADER */
+header {
+  background-color: #ff7f00;
+  color: white;
+}
+
+.header-container {
+  margin: 50px;
+  margin-top: 0;
+  justify-content: space-between;
+}
+
+.main-nav {
+  height: 60px;
+}
+
+ul {
+  font-size: 1.1875rem;
+  width: 340px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-container {
+  align-items: center;
+}
+
+.logo {
+  font-size: 2rem;
+}
+
+/* CANVAS */
+canvas {
+  display: block;
+  margin: auto;
+  background-color: white;
+  border: 1px solid black;
+}
+.canvas-container {
+  position: relative;
+  background-color: brown;
+  margin: auto;
+  width: 400px;
+  height: 400px;
+}
+
+.canvas-txt {
+  position: absolute;
+  top: 0;
+}
+
+/* IMAGE GALLERY */
+
+img {
+  height: 150px;
+}
