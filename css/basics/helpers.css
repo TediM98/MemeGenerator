@@ -11,3 +11,13 @@
 .hidden {
   display: none;
 }
+
+@font-face {
+  font-family: Impact;
+  src: url(/fonts/impact.ttf);
+}
+
+@font-face {
+  font-family: Sigmar;
+  src: url(/fonts/Sigmar-Regular.ttf);
+}

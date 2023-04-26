@@ -6,9 +6,8 @@ function renderGallery() {
 
     const strHtml = images.map(img => {
         return `<div>
-<img src="img/${img.id}.jpg" alt=""/>
+<img src="img/${img.id}.jpg" alt="" onclick="onClickImg(${img.id})"/>
     </div>`
     }).join('')
-    console.log('strHtml', strHtml)
     elImgContainer.innerHTML = strHtml
 }
