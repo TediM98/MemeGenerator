@@ -21,13 +21,16 @@ function renderMeme() {
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
 
-        currMeme.lines.forEach((line, index) => {
+        currMeme.lines.forEach(line => {
+            gCtx.lineWidth = 1
             gCtx.font = `${line.size}px ${line.font}`
-            gCtx.fillStyle = line.color
-            gCtx.strokeStyle = line.stroke
+            gCtx.fillStyle = line.fontColor
+            gCtx.strokeStyle = line.strokeColor
             gCtx.textAlign = line.align
             const txt = line.txt
             gCtx.fillText(txt, line.pos.x, line.pos.y)
+            gCtx.strokeText(txt, line.pos.x, line.pos.y)
+            drawBorder()
         })
     }
 }
@@ -59,6 +62,11 @@ function setFontColor(ev) {
     changeFontColor(ev.target.value)
 }
 
+function setStrokeColor(ev) {
+    changeStrokeColor(ev.target.value)
+}
+
+
 function onIncreaseFont() {
     increaseFont()
     renderMeme()
@@ -70,6 +78,8 @@ function onDecreaseFont() {
 }
 
 function onSwitchLines() {
+    const currLine = getLine()
+    if (!currLine) updateLineIdx(1)
     switchLines()
 }
 
@@ -97,6 +107,8 @@ function addListeners() {
 function onDown(ev) {
     const { offsetX, offsetY } = ev
     const isClicked = isLineClicked(offsetX, offsetY)
+    if (!isClicked) updateLineIdx(null)
+    renderMeme()
 }
 
 function onMove(ev) {
@@ -129,3 +141,23 @@ function onAlignmentChange(alignment) {
     renderMeme()
 }
 
+function onDownloadMeme(link) {
+    updateDownload()
+    renderMeme()
+    const memeUrl = gElCanvas.toDataURL()
+    link.href = memeUrl
+}
+
+function onSelectSection(page) {
+    switch (page) {
+        case 'gallery':
+            openGallery()
+            break
+        case 'memes':
+            openMemes()
+            break
+        case 'about':
+            openAbout()
+            break
+    }
+}

@@ -10,67 +10,124 @@
   </head>
   <body onload="onInit()">
     <header class="main-header">
-      <div class="header-container flex">
-        <div class="logo-container flex">
+      <div class="header-container flex main-layout">
+        <div class="logo-container flex align-center">
           <div class="logo">MemeGen</div>
         </div>
         <nav class="main-nav flex">
           <ul class="flex clean-list">
-            <li>Gallery</li>
-            <li>Memes</li>
-            <li>About</li>
+            <li class="gallery active" onclick="onSelectSection('gallery')">
+              Gallery
+            </li>
+            <li class="meme" onclick=" onSelectSection('meme')">Memes</li>
+            <li class="about" onclick="onSelectSection('about')">About</li>
           </ul>
         </nav>
       </div>
     </header>
     <section class="gallery-container">
-      <div class="image-container flex"></div>
+      <div class="image-container main-layout"></div>
     </section>
-    <section class="editor-container hidden">
+    <section class="editor-container flex hidden">
+      <div class="canvas-container hidden">
+        <canvas id="my-canvas" height="400" width="400"></canvas>
+      </div>
       <div class="tools-container">
         <div class="control-box">
+          <button class="btn control btn-switchLine" onclick="onSwitchLines()">
+            <img
+              src="icons/up-and-down-opposite-double-arrows-side-by-side.png"
+              alt=""
+            />
+          </button>
+          <button class="btn control btn-removeLine" onclick="onRemoveLine()">
+            <img src="icons/trash.png" alt="" />
+          </button>
+          <button class="btn control btn-addLine" onclick="onAddLine()">
+            <img src="icons/arrow-up.jpg" alt="" />
+          </button>
+          <button
+            class="btn control btn-upLine"
+            onclick="onAlignmentChange('up')"
+          >
+            <img src="icons/" alt="" />
+          </button>
+          <button
+            class="btn control btn-downLine"
+            onclick="onAlignmentChange('down')"
+          >
+            Down
+          </button>
+
+          <input
+            id="text-input"
+            type="text"
+            class="canvas-txt"
+            placeholder="Enter text here"
+            oninput="setLineTxt(this.value)"
+          />
+        </div>
+        <div class="styling-container">
           <button class="btn">
             <input
               type="color"
-              class="tool-fontColor"
+              class="btn btn-fontColor"
               id="fontColor"
               name="fontColor"
-              onchange="setFontColor(event)"
+              oninput="setFontColor(event)"
             />
           </button>
-          <button class="btn" onclick="onIncreaseFont()">+</button>
-          <button class="btn" onclick="onDecreaseFont()">-</button>
-
-          <button class="btn" onclick="onSwitchLines()">Switch Lines</button>
-          <button class="btn" onclick="onRemoveLine()">RemoveLine</button>
-          <button class="btn" onclick="onAddLine()">AddLine</button>
-          <button class="btn" onclick="onAlignmentChange('center')">
+          <button>
+            <input
+              type="color"
+              class="btn btn-strokeColor"
+              id="strokeColor"
+              name="strokeColor"
+              oninput="setStrokeColor(event)"
+            />
+          </button>
+          <button class="btn btn-increaseFont" onclick="onIncreaseFont()">
+            +
+          </button>
+          <button class="btn btn-decreaseFont" onclick="onDecreaseFont()">
+            -
+          </button>
+          <button
+            class="btn btn-align-center"
+            onclick="onAlignmentChange('center')"
+          >
             AlignCenter
           </button>
-          <button class="btn" onclick="onAlignmentChange('start')">
+          <button
+            class="btn btn-align-start"
+            onclick="onAlignmentChange('start')"
+          >
             AlignLeft
           </button>
-          <button class="btn" onclick="onAlignmentChange('end')">
+          <button class="btn btn-align-end" onclick="onAlignmentChange('end')">
             AlignRight
           </button>
-          <button class="btn" onclick="onAlignmentChange('up')">Up</button>
-          <button class="btn" onclick="onAlignmentChange('down')">Down</button>
+          <select
+            onchange="onFontChange(this.value)"
+            name="Font"
+            id=""
+            class="btn btn-font"
+          >
+            <option value="Impact">Impact</option>
+            <option value="Arial">Arial</option>
+            <option value="Sigmar">Sigmar</option>
+          </select>
         </div>
-      </div>
-      <select onchange="onFontChange(this.value)" name="Font" id="">
-        <option value="Impact">Impact</option>
-        <option value="Arial">Arial</option>
-        <option value="Sigmar">Sigmar</option>
-      </select>
-      <div class="canvas-container hidden">
-        <canvas id="my-canvas" height="400" width="400"></canvas>
-        <input
-          id="text-input"
-          type="text"
-          class="canvas-txt"
-          placeholder="Enter text here"
-          oninput="setLineTxt(this.value)"
-        />
+        <div class="btn-container flex">
+          <a
+            class="btn btn-download"
+            href="#"
+            onclick="onDownloadMeme(this)"
+            download="My-Meme.jpg"
+          >
+            <button class="btn">Download</button>
+          </a>
+        </div>
       </div>
     </section>
 
