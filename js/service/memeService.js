@@ -1,28 +1,28 @@
 'use strict'
-let gIsDownloading = false
 let gCurrLineIdx = 0
+let gFilterBy = ''
 
-var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 var gImgs = [
-    { id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'] },
-    { id: 2, url: 'img/2.jpg', keywords: ['funny', 'cat'] },
-    { id: 3, url: 'img/3.jpg', keywords: ['funny', 'cat'] },
-    { id: 4, url: 'img/4.jpg', keywords: ['funny', 'cat'] },
-    { id: 5, url: 'img/5.jpg', keywords: ['funny', 'cat'] },
-    { id: 6, url: 'img/6.jpg', keywords: ['funny', 'cat'] },
-    { id: 7, url: 'img/7.jpg', keywords: ['funny', 'cat'] },
-    { id: 8, url: 'img/8.jpg', keywords: ['funny', 'cat'] },
-    { id: 9, url: 'img/9.jpg', keywords: ['funny', 'cat'] },
-    { id: 10, url: 'img/10.jpg', keywords: ['funny', 'cat'] },
-    { id: 11, url: 'img/11.jpg', keywords: ['funny', 'cat'] },
-    { id: 12, url: 'img/12.jpg', keywords: ['funny', 'cat'] },
-    { id: 13, url: 'img/13.jpg', keywords: ['funny', 'cat'] },
-    { id: 14, url: 'img/14.jpg', keywords: ['funny', 'cat'] },
-    { id: 15, url: 'img/15.jpg', keywords: ['funny', 'cat'] },
-    { id: 16, url: 'img/16.jpg', keywords: ['funny', 'cat'] },
-    { id: 17, url: 'img/17.jpg', keywords: ['funny', 'cat'] },
-    { id: 18, url: 'img/18.jpg', keywords: ['funny', 'cat'] },
+    { id: 1, url: 'img/1.jpg', keywords: ['funny', 'president'] },
+    { id: 2, url: 'img/2.jpg', keywords: ['funny', 'dog', 'cute'] },
+    { id: 3, url: 'img/3.jpg', keywords: ['baby', 'dog', 'cute'] },
+    { id: 4, url: 'img/4.jpg', keywords: ['cute', 'cat',] },
+    { id: 5, url: 'img/5.jpg', keywords: ['funny', 'baby'] },
+    { id: 6, url: 'img/6.jpg', keywords: ['funny',] },
+    { id: 7, url: 'img/7.jpg', keywords: ['funny', 'baby'] },
+    { id: 8, url: 'img/8.jpg', keywords: ['funny',] },
+    { id: 9, url: 'img/9.jpg', keywords: ['funny', 'baby', 'cute'] },
+    { id: 10, url: 'img/10.jpg', keywords: ['funny', 'president'] },
+    { id: 11, url: 'img/11.jpg', keywords: ['funny',] },
+    { id: 12, url: 'img/12.jpg', keywords: ['funny',] },
+    { id: 13, url: 'img/13.jpg', keywords: ['funny',] },
+    { id: 14, url: 'img/14.jpg', keywords: ['funny', 'president'] },
+    { id: 15, url: 'img/15.jpg', keywords: ['funny',] },
+    { id: 16, url: 'img/16.jpg', keywords: ['funny',] },
+    { id: 17, url: 'img/17.jpg', keywords: ['funny', 'president'] },
+    { id: 18, url: 'img/18.jpg', keywords: ['funny',] },
 ]
+
 var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
@@ -36,6 +36,7 @@ var gMeme = {
             font: 'Impact',
             pos: { x: 120, y: 50 },
             isDrag: false,
+
         }
     ]
 }
@@ -45,6 +46,9 @@ function setImg(imgId) {
     const elCanvasContainer = document.querySelector('.canvas-container')
     const elGalleryContainer = document.querySelector('.gallery-container')
     const elToolBar = document.querySelector('.editor-container')
+    const elContact = document.querySelector('.main-contact')
+    elContact.classList.add('hidden')
+
     document.querySelector('.gallery').classList.remove('active')
     document.querySelector('.control-box').classList.remove('hidden')
     elCanvasContainer.classList.remove('hidden')
@@ -71,7 +75,9 @@ function setLineTxt(txt) {
 }
 
 function getImages() {
-    return gImgs
+    if (!gFilterBy) return gImgs
+    const memes = gImgs.filter(img => img.keywords.includes(gFilterBy))
+    return memes
 }
 
 function changeFontColor(color) {
@@ -162,10 +168,6 @@ function removeLine() {
     }
 }
 
-// function setTextDrag(isDrag) {
-//     gMeme.lines[gCurrLineIdx] = isDrag
-// }
-
 function addLine() {
     const lines = getLines()
     const newLineNum = lines.length + 1
@@ -224,13 +226,12 @@ function alignText(alignment) {
 }
 
 function drawBorder() {
-    if (gIsDownloading) return
     const line = getLine()
     if (!line) return
     gCtx.beginPath()
     gCtx.rect(
         line.pos.x - (gCtx.measureText(line.txt).width) / 2 - 10,
-        line.pos.y - 25,
+        line.pos.y - 35,
         gCtx.measureText(line.txt).width + 20,
         line.size + 20
     )
@@ -240,25 +241,22 @@ function drawBorder() {
     gCtx.closePath()
 }
 
-function updateDownload() {
-    gIsDownloading = true
-}
-
 function openGallery() {
-    document.querySelector('.control-box').classList.add('hidden')
     document.querySelector('.canvas-container').classList.add('hidden')
-    // document.querySelector('.editor-container').classList.add('none')
+    document.querySelector('.editor-container').classList.add('hidden')
+
     document.querySelector('.gallery-container').classList.remove('hidden')
+    document.querySelector('.main-contact').classList.remove('hidden')
+
     document.querySelector('.gallery').classList.add('active')
 }
 
-// function openMemes() {
-//     document.querySelector('.gallery-container').classList.add('hidden')
-//     document.querySelector('.control-box').classList.add('hidden')
-//     document.querySelector('.canvas-container').classList.add('hidden')
-// }
+function openAbout() {
 
-// function openAbout() {
-//
-// }
+}
+
+function setFilterBy(keyword) {
+    gFilterBy = keyword
+    renderGallery()
+}
 

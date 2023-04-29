@@ -5,6 +5,8 @@
 body {
   margin: 0;
   background-color: #e3e3e3;
+  height: 100vh;
+  overflow-x: hidden;
 }
 
 /* HEADER */
@@ -14,8 +16,11 @@ body {
   color: white;
 }
 
-.header-container {
-  justify-content: space-between;
+.btn-menu {
+  background-color: transparent;
+  border: none;
+  scale: 1.7;
+  cursor: pointer;
 }
 
 .main-nav {
@@ -47,6 +52,31 @@ li:hover {
   color: black;
 }
 
+/* SEARCH-FILTERS */
+
+.search-filter {
+  width: 100%;
+  height: 100px;
+  background-color: whitesmoke;
+}
+
+.search-filter-container {
+  height: 100px;
+}
+
+.btn-search {
+  position: relative;
+  height: 21px;
+  width: 21px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+}
+
 /* CANVAS */
 canvas {
   background-color: rgb(57, 25, 25);
@@ -55,7 +85,8 @@ canvas {
 }
 
 .canvas-container {
-  margin: auto;
+  margin: 200px auto;
+  margin-block-start: 90px;
   width: 400px;
   height: 400px;
 }
@@ -69,12 +100,9 @@ img {
   border-radius: 10px;
 }
 
-img:hover {
+.image-container img:hover {
   transition: 0.6s;
   opacity: 0.6;
-}
-
-.gallery-container {
 }
 
 .image-container {
@@ -82,17 +110,15 @@ img:hover {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 20px;
   justify-items: center;
-  /* margin-bottom: 10px; */
-  /* flex-wrap: wrap; */
 }
 
 /* TOOLS */
 
 .tools-container {
-  margin-top: 90px;
+  margin-top: 180px;
   margin-right: auto;
-  /* height: 500px;
-  width: 500px; */
+  max-height: 405px;
+
   border: 2px solid black;
   display: grid;
 }
@@ -122,6 +148,7 @@ img:hover {
   grid-column: 2 / span 3;
   height: 30px;
   align-self: center;
+  border-radius: 10px;
 }
 
 .btn-upLine {
@@ -193,7 +220,8 @@ img:hover {
   justify-content: center;
 }
 
-/* .btn-fontColor {
+.btn-fontColor {
+  background-image: url(/icons/paint-board-and-brush.png);
   display: block;
   grid-row: 2;
   grid-column: 4;
@@ -203,4 +231,63 @@ img:hover {
   display: block;
   grid-row: 2;
   grid-column: 5;
-} */
+}
+
+.btn-font-placeholder,
+.btn-stroke-placeholder {
+  position: relative;
+}
+
+.btn-strokeColor,
+.btn-fontColor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+}
+
+/* CONTACT SECTION */
+
+.main-contact {
+  background-color: whitesmoke;
+  width: 100%;
+}
+
+.contacts {
+  justify-content: center;
+  padding-block: 50px;
+}
+
+.my-img {
+  height: 300px;
+  width: 270px;
+  border-radius: 50%;
+}
+
+.contact-details {
+  padding-inline-start: 50px;
+  width: 30%;
+  justify-content: left;
+}
+
+/* FOOTER */
+
+footer {
+  background-color: #ff7f00;
+  color: whitesmoke;
+}
+
+.footer-container {
+  flex-direction: column;
+  padding-block: 30px;
+}
+
+.footer-header {
+  font-size: 1.5em;
+}
+
+.footer-container span {
+  font-size: 0.875em;
+}
+
+/* HAMBURGER MENU */

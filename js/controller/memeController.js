@@ -3,6 +3,7 @@ let gElCanvas
 let gCtx
 let gStartPos
 
+
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 function onInit() {
@@ -10,15 +11,20 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
     window.addEventListener('resize', resizeCanvas)
     addListeners()
+    renderKeyWords()
+    renderGallery()
     renderMeme()
 }
 
 function renderMeme() {
     const currMeme = getMeme()
     const elImg = new Image()
-    // const currLineIdx = getCurrLineIdx()
     elImg.src = `img/${currMeme.selectedImgId}.jpg`
     elImg.onload = () => {
+        if (window.innerWidth < 400) {
+            gElCanvas.width = 390
+            gElCanvas.height = 390
+        }
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
 
         currMeme.lines.forEach(line => {
@@ -36,10 +42,10 @@ function renderMeme() {
 }
 
 function resizeCanvas(width, height) {
-    const newCanvas = document.createElement('canvas');
-    newCanvas.width = width;
-    newCanvas.height = height;
-    const newCtx = newCanvas.getContext('2d');
+    const newCanvas = document.createElement('canvas')
+    newCanvas.width = width
+    newCanvas.height = height
+    const newCtx = newCanvas.getContext('2d')
     newCtx.drawImage(
         gElCanvas,
         0,
@@ -52,7 +58,6 @@ function resizeCanvas(width, height) {
         newCanvas.height
     )
 }
-
 function onClickImg(imgId) {
     setImg(imgId)
     renderMeme()
@@ -98,10 +103,6 @@ function addTouchListeners() {
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
-    // Listen for resize ev
-    // window.addEventListener('resize', () => {
-    //     onInit()
-    // })
 }
 
 function onDown(ev) {
@@ -142,7 +143,6 @@ function onAlignmentChange(alignment) {
 }
 
 function onDownloadMeme(link) {
-    updateDownload()
     renderMeme()
     const memeUrl = gElCanvas.toDataURL()
     link.href = memeUrl
@@ -152,12 +152,16 @@ function onSelectSection(page) {
     switch (page) {
         case 'gallery':
             openGallery()
+            onToggleMenu()
             break
         case 'memes':
-            openMemes()
+            openSavedMemes()
+            onToggleMenu()
             break
         case 'about':
             openAbout()
+            onToggleMenu()
             break
     }
 }
+

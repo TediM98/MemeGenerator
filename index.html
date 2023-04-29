@@ -6,28 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/basics/helpers.css" />
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/setup/mq.css" />
     <title>MemeGen</title>
   </head>
-  <body onload="onInit()">
+  <body class="" onload="onInit()">
+    <div class="menu-bgToggle hidden" onclick="onToggleMenu()"></div>
     <header class="main-header">
-      <div class="header-container flex main-layout">
+      <div class="header-container flex main-layout space-between">
         <div class="logo-container flex align-center">
-          <div class="logo">MemeGen</div>
+          <div class="logo" onclick="onSelectSection('gallery')">MemeGen</div>
         </div>
         <nav class="main-nav flex">
           <ul class="flex clean-list">
             <li class="gallery active" onclick="onSelectSection('gallery')">
               Gallery
             </li>
-            <li class="meme" onclick=" onSelectSection('meme')">Memes</li>
+            <li class="meme" onclick="onSelectSection('meme')">Memes</li>
             <li class="about" onclick="onSelectSection('about')">About</li>
           </ul>
         </nav>
+        <button class="btn btn-menu hidden" onclick="onToggleMenu()">☰</button>
       </div>
     </header>
-    <section class="gallery-container">
+
+    <main class="gallery-container">
+      <section class="search-filter">
+        <div
+          class="search-filter-container flex space-between align-center main-layout"
+        >
+          <div class="search-bar flex">
+            <input
+              class="search-input"
+              type="search"
+              list="search-keywords"
+              id="gsearch"
+              name="gsearch"
+              placeholder="Search by keyword"
+              oninput="onSetFilterBy(this.value)"
+            />
+            <datalist id="search-keywords">
+              <option onclick="onSetFilterBy('cat')">cat</option>
+              <option onclick="onSetFilterBy('funny')">funny</option>
+              <option onclick="onSetFilterBy('baby')">baby</option>
+              <option onclick="onSetFilterBy('president')">president</option>
+              <option onclick="onSetFilterBy('dog')">dog</option>
+              <option onclick="onSetFilterBy('cute')">cute</option>
+            </datalist>
+          </div>
+          <div class="keyword-container">
+            <ul class="keywords clean-list flex space-between"></ul>
+          </div>
+        </div>
+      </section>
       <div class="image-container main-layout"></div>
-    </section>
+    </main>
+
     <section class="editor-container flex hidden">
       <div class="canvas-container hidden">
         <canvas id="my-canvas" height="400" width="400"></canvas>
@@ -44,19 +77,19 @@
             <img src="icons/trash.png" alt="" />
           </button>
           <button class="btn control btn-addLine" onclick="onAddLine()">
-            <img src="icons/arrow-up.jpg" alt="" />
+            <img src="icons/add.png" alt="" />
           </button>
           <button
             class="btn control btn-upLine"
             onclick="onAlignmentChange('up')"
           >
-            <img src="icons/" alt="" />
+            <img src="icons/up-arrow.png" alt="" />
           </button>
           <button
             class="btn control btn-downLine"
             onclick="onAlignmentChange('down')"
           >
-            Down
+            <img src="icons/down-arrow.png" alt="" />
           </button>
 
           <input
@@ -68,7 +101,8 @@
           />
         </div>
         <div class="styling-container">
-          <button class="btn">
+          <button class="btn btn-font-placeholder">
+            <img src="icons/paint-board-and-brush.png" alt="" />
             <input
               type="color"
               class="btn btn-fontColor"
@@ -77,7 +111,8 @@
               oninput="setFontColor(event)"
             />
           </button>
-          <button>
+          <button class="btn btn-stroke-placeholder">
+            <img src="icons/text stroke.png" alt="" />
             <input
               type="color"
               class="btn btn-strokeColor"
@@ -87,25 +122,25 @@
             />
           </button>
           <button class="btn btn-increaseFont" onclick="onIncreaseFont()">
-            +
+            <img src="icons/increase font - icon.png" alt="" />
           </button>
           <button class="btn btn-decreaseFont" onclick="onDecreaseFont()">
-            -
+            <img src="icons/decrease font - icon.png" alt="" />
           </button>
           <button
             class="btn btn-align-center"
             onclick="onAlignmentChange('center')"
           >
-            AlignCenter
+            <img src="icons/center-text-alignment.png" alt="" />
           </button>
           <button
             class="btn btn-align-start"
             onclick="onAlignmentChange('start')"
           >
-            AlignLeft
+            <img src="icons/align-to-left.png" alt="" />
           </button>
           <button class="btn btn-align-end" onclick="onAlignmentChange('end')">
-            AlignRight
+            <img src="icons/align-to-right.png" alt="" />
           </button>
           <select
             onchange="onFontChange(this.value)"
@@ -125,13 +160,47 @@
             onclick="onDownloadMeme(this)"
             download="My-Meme.jpg"
           >
-            <button class="btn">Download</button>
+            <button class="btn">
+              <img src="icons/cloud-download.png" alt="" />
+            </button>
           </a>
+          <button class="btn" onclick="onUploadImg()">
+            <img src="icons/upload.png" alt="" />
+          </button>
+          <button class="saveMeme" onclick="onSaveMeme()">Save</button>
         </div>
       </div>
     </section>
-
+    <section class="savedMemes hidden">
+      <div class="savedMemes-container"></div>
+    </section>
+    <section class="main-contact">
+      <div class="contacts flex main-layout align-center">
+        <div class="my-img">
+          <img class="my-img" src="/img/me.jpg" alt="" />
+        </div>
+        <div class="contact-details">
+          <h1>Tedi Marunchak</h1>
+          <p>
+            If you have any questions, comments, or just want to say hello,
+            please don't hesitate to contact me. You can reach me through the
+            contact form on my website. I always love hearing from new people
+            and am happy to discuss any ideas or collaborations. Looking forward
+            to hearing from you soon!
+          </p>
+        </div>
+      </div>
+    </section>
+    <footer class="main-footer">
+      <div class="footer-container main-layout flex align-center">
+        <h1 class="footer-header">MemeGen</h1>
+        <span>All Right Reserved™</span>
+      </div>
+    </footer>
+    <script src="/js/service/localstorageService.js"></script>
+    <script src="/js/service/sharing-on-facebook.js"></script>
     <script src="js/service/memeService.js"></script>
+    <script src="js/service/savedService.js"></script>
     <script src="js/controller/galleryController.js"></script>
     <script src="js/controller/memeController.js"></script>
   </body>
