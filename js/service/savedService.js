@@ -1,5 +1,6 @@
 'use strict'
-const gSavedMemes = []
+const STORAGE_KEY = 'MemesDB'
+let gSavedMemes = []
 
 function renderSavedMemes() {
     const savedMemes = loadFromStorage(STORAGE_KEY)
@@ -8,27 +9,42 @@ function renderSavedMemes() {
         strHtmls = savedMemes
             .map((meme) => {
                 console.log(meme)
-                return `<div class="img-gallery" data-id="${meme.id}">
-                    <img src="${meme.url}" onclick="onOpenImgModal('${meme.url}', '${meme.id}')" />
+                return `<div class="img-gallery flex" data-id="${meme.id}">
+                    <img src="${meme.url}" ('${meme.id}')" />
                 </div>`
             })
             .join('')
     } else {
-        strHtmls = `No Memes to show:( `
+        strHtmls = `No memes available`
     }
-    document.querySelector('.savedMemes-container').innerHTML = strHtmls
+    document.querySelector('.saved-meme-container').innerHTML = strHtmls
 }
 
-function onSaveModal() {
-    const savedMemeURL = gElCanvas.toDataURL()
-    saveMeme(savedMemeURL)
-
-}
-
-function saveMeme(src) {
+function saveMeme(url) {
     const id = _makeId()
-    gSavedMemes.push({ id, src })
-    saveMemesToStorage
+    gSavedMemes.push({ id, url })
+    saveMemesToStorage()
+}
+
+function openSavedMemes() {
+    const elGalleryContainer = document.querySelector('.gallery-container')
+    elGalleryContainer.classList.add('hidden')
+
+    const elContact = document.querySelector('.main-contact')
+    elContact.classList.add('hidden')
+
+    const elToolBar = document.querySelector('.editor-container')
+    elToolBar.classList.add('hidden')
+
+    document.querySelector('.gallery').classList.remove('active')
+    document.querySelector('.main-nav .meme').classList.add('active')
+
+
+    document.querySelector('.search-filter').classList.add('hidden')
+
+
+    document.querySelector('.saved-memes').classList.remove('hidden')
+    renderSavedMemes()
 }
 
 function _makeId(length = 6) {
@@ -42,3 +58,22 @@ function _makeId(length = 6) {
 
     return txt;
 }
+
+function saveMemesToStorage() {
+    saveToStorage(STORAGE_KEY, gSavedMemes)
+}
+
+function saveToStorage(key, val) {
+    localStorage.setItem(key, JSON.stringify(val))
+}
+
+function loadFromStorage(key) {
+    const str = localStorage.getItem(key)
+    return JSON.parse(str)
+}
+
+function clearStorage() {
+    localStorage.clear()
+    console.log('cleared')
+}
+

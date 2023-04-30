@@ -7,15 +7,16 @@ let gKeyWordMap =
     president: 24,
     baby: 24,
     cute: 24,
+    all: 27
 }
 
 let gOpenedMenu = false
 
 function renderGallery() {
-    const images = getImages()
-    const elImgContainer = document.querySelector('.image-container')
+    const imgs = getImages()
+    const elImgContainer = document.querySelector('.img-container')
 
-    const strHtml = images.map(img => {
+    const strHtml = imgs.map(img => {
         return `<div>
 <img src="img/${img.id}.jpg" alt="" onclick="onClickImg(${img.id})"/>
     </div>`

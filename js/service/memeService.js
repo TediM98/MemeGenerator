@@ -3,24 +3,24 @@ let gCurrLineIdx = 0
 let gFilterBy = ''
 
 var gImgs = [
-    { id: 1, url: 'img/1.jpg', keywords: ['funny', 'president'] },
-    { id: 2, url: 'img/2.jpg', keywords: ['funny', 'dog', 'cute'] },
-    { id: 3, url: 'img/3.jpg', keywords: ['baby', 'dog', 'cute'] },
-    { id: 4, url: 'img/4.jpg', keywords: ['cute', 'cat',] },
-    { id: 5, url: 'img/5.jpg', keywords: ['funny', 'baby'] },
-    { id: 6, url: 'img/6.jpg', keywords: ['funny',] },
-    { id: 7, url: 'img/7.jpg', keywords: ['funny', 'baby'] },
-    { id: 8, url: 'img/8.jpg', keywords: ['funny',] },
-    { id: 9, url: 'img/9.jpg', keywords: ['funny', 'baby', 'cute'] },
-    { id: 10, url: 'img/10.jpg', keywords: ['funny', 'president'] },
-    { id: 11, url: 'img/11.jpg', keywords: ['funny',] },
-    { id: 12, url: 'img/12.jpg', keywords: ['funny',] },
-    { id: 13, url: 'img/13.jpg', keywords: ['funny',] },
-    { id: 14, url: 'img/14.jpg', keywords: ['funny', 'president'] },
-    { id: 15, url: 'img/15.jpg', keywords: ['funny',] },
-    { id: 16, url: 'img/16.jpg', keywords: ['funny',] },
-    { id: 17, url: 'img/17.jpg', keywords: ['funny', 'president'] },
-    { id: 18, url: 'img/18.jpg', keywords: ['funny',] },
+    { id: 1, url: 'img/1.jpg', keywords: ['funny', 'president', 'all'] },
+    { id: 2, url: 'img/2.jpg', keywords: ['funny', 'dog', 'cute', 'all'] },
+    { id: 3, url: 'img/3.jpg', keywords: ['baby', 'dog', 'cute', 'all'] },
+    { id: 4, url: 'img/4.jpg', keywords: ['cute', 'cat', 'all'] },
+    { id: 5, url: 'img/5.jpg', keywords: ['funny', 'baby', 'all'] },
+    { id: 6, url: 'img/6.jpg', keywords: ['funny', 'all'] },
+    { id: 7, url: 'img/7.jpg', keywords: ['funny', 'baby', 'all'] },
+    { id: 8, url: 'img/8.jpg', keywords: ['funny', 'all'] },
+    { id: 9, url: 'img/9.jpg', keywords: ['funny', 'baby', 'cute', 'all'] },
+    { id: 10, url: 'img/10.jpg', keywords: ['funny', 'president', 'all'] },
+    { id: 11, url: 'img/11.jpg', keywords: ['funny', 'all'] },
+    { id: 12, url: 'img/12.jpg', keywords: ['funny', 'all'] },
+    { id: 13, url: 'img/13.jpg', keywords: ['funny', 'all'] },
+    { id: 14, url: 'img/14.jpg', keywords: ['funny', 'president', 'all'] },
+    { id: 15, url: 'img/15.jpg', keywords: ['funny', 'all'] },
+    { id: 16, url: 'img/16.jpg', keywords: ['funny', 'all'] },
+    { id: 17, url: 'img/17.jpg', keywords: ['funny', 'president', 'all'] },
+    { id: 18, url: 'img/18.jpg', keywords: ['funny', 'all'] },
 ]
 
 var gMeme = {
@@ -55,10 +55,6 @@ function setImg(imgId) {
     elGalleryContainer.classList.add('hidden')
     elToolBar.classList.remove('hidden')
     gMeme.selectedImgId = imgId
-}
-
-function getCtx() {
-    return gCtx
 }
 
 function getElCanvas() {
@@ -201,6 +197,7 @@ function _createLine(newLineNum) {
         font: 'Impact',
         pos: { x: newPos.x, y: newPos.y },
         isDrag: false,
+        url
     }
 }
 
@@ -229,14 +226,19 @@ function drawBorder() {
     const line = getLine()
     if (!line) return
     gCtx.beginPath()
-    gCtx.rect(
-        line.pos.x - (gCtx.measureText(line.txt).width) / 2 - 10,
-        line.pos.y - 35,
-        gCtx.measureText(line.txt).width + 20,
-        line.size + 20
-    )
-    gCtx.lineWidth = 2;
-    gCtx.strokeStyle = 'black';
+    if (!line.pos.x) {
+        gCtx.rect(0, line.pos.y - 35, gCtx.measureText(line.txt).width + 10, line.size + 20)
+    } else if (line.pos.x + gCtx.measureText(line.txt).width > gElCanvas.width) {
+        gCtx.rect(gElCanvas.width - gCtx.measureText(line.txt).width - 10, line.pos.y - 35, gElCanvas.width, line.size + 20)
+    } else {
+        gCtx.rect(line.pos.x - (gCtx.measureText(line.txt).width) / 2 - 10,
+            line.pos.y - 35,
+            gCtx.measureText(line.txt).width + 20,
+            line.size + 20)
+    }
+
+    gCtx.lineWidth = 2
+    gCtx.strokeStyle = 'black'
     gCtx.stroke()
     gCtx.closePath()
 }
@@ -248,11 +250,8 @@ function openGallery() {
     document.querySelector('.gallery-container').classList.remove('hidden')
     document.querySelector('.main-contact').classList.remove('hidden')
 
+    document.querySelector('.main-nav .meme').classList.remove('active')
     document.querySelector('.gallery').classList.add('active')
-}
-
-function openAbout() {
-
 }
 
 function setFilterBy(keyword) {

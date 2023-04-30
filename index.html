@@ -58,7 +58,7 @@
           </div>
         </div>
       </section>
-      <div class="image-container main-layout"></div>
+      <div class="img-container main-layout"></div>
     </main>
 
     <section class="editor-container flex hidden">
@@ -146,7 +146,7 @@
             onchange="onFontChange(this.value)"
             name="Font"
             id=""
-            class="btn btn-font"
+            class="btn btn-font medium"
           >
             <option value="Impact">Impact</option>
             <option value="Arial">Arial</option>
@@ -167,17 +167,19 @@
           <button class="btn" onclick="onUploadImg()">
             <img src="icons/upload.png" alt="" />
           </button>
-          <button class="saveMeme" onclick="onSaveMeme()">Save</button>
+          <button class="btn btn-save-meme" onclick="onSaveMeme()">
+            <img src="icons/save.png" alt="" />
+          </button>
         </div>
       </div>
     </section>
-    <section class="savedMemes hidden">
-      <div class="savedMemes-container"></div>
+    <section class="saved-memes hidden">
+      <div class="saved-meme-container"></div>
     </section>
     <section class="main-contact">
       <div class="contacts flex main-layout align-center">
         <div class="my-img">
-          <img class="my-img" src="/img/me.jpg" alt="" />
+          <img class="my-img" src="img/me.jpg" alt="" />
         </div>
         <div class="contact-details">
           <h1>Tedi Marunchak</h1>
@@ -199,8 +201,8 @@
     </footer>
     <script src="/js/service/localstorageService.js"></script>
     <script src="/js/service/sharing-on-facebook.js"></script>
-    <script src="js/service/memeService.js"></script>
     <script src="js/service/savedService.js"></script>
+    <script src="js/service/memeService.js"></script>
     <script src="js/controller/galleryController.js"></script>
     <script src="js/controller/memeController.js"></script>
   </body>

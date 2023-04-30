@@ -9,6 +9,11 @@ body {
   overflow-x: hidden;
 }
 
+.editor-container {
+  height: calc(100% - 60px - 135px);
+  justify-content: center;
+}
+
 /* HEADER */
 .main-header {
   background-color: #ff7f00;
@@ -85,8 +90,8 @@ canvas {
 }
 
 .canvas-container {
-  margin: 200px auto;
   margin-block-start: 90px;
+  margin-left: auto;
   width: 400px;
   height: 400px;
 }
@@ -100,12 +105,13 @@ img {
   border-radius: 10px;
 }
 
-.image-container img:hover {
+.img-container img:hover {
   transition: 0.6s;
   opacity: 0.6;
+  scale: 1.03;
 }
 
-.image-container {
+.img-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 20px;
@@ -117,6 +123,7 @@ img {
 .tools-container {
   margin-top: 180px;
   margin-right: auto;
+  margin-left: 50px;
   max-height: 405px;
 
   border: 2px solid black;
@@ -133,12 +140,12 @@ img {
 }
 
 .tools-container .btn {
-  height: 30px;
-  width: 90px;
+  height: 70px;
+  width: 70px;
 }
 
 .tools-container img {
-  height: 25px;
+  height: 30px;
   width: 30px;
   border: none;
 }
@@ -209,11 +216,6 @@ img {
   grid-column: 5;
 }
 
-.btn-font {
-  grid-column: 3 / span 3;
-  height: 30px;
-}
-
 .btn-container {
   /* text-align: center; */
   align-items: center;
@@ -227,8 +229,21 @@ img {
   grid-column: 4;
 }
 
+.btn-stroke-placeholder {
+  grid-row: 2;
+  grid-column: 2;
+}
+.btn-font-placeholder {
+  grid-row: 2;
+  grid-column: 3;
+}
+
+.btn-font {
+  grid-column: 4;
+  height: 30px;
+}
+
 .btn-strokeColor {
-  display: block;
   grid-row: 2;
   grid-column: 5;
 }
@@ -290,4 +305,21 @@ footer {
   font-size: 0.875em;
 }
 
-/* HAMBURGER MENU */
+/* SAVED MEMES */
+
+.img-gallery {
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-gallery img {
+  width: 250px;
+  height: 250px;
+}
+
+/* ////////////////////////////////////// */
+
+.gallery-container {
+  padding-top: 10px;
+}

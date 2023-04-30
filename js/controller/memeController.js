@@ -2,7 +2,7 @@
 let gElCanvas
 let gCtx
 let gStartPos
-
+let gIsMemeSave = false
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
@@ -112,13 +112,6 @@ function onDown(ev) {
     renderMeme()
 }
 
-function onMove(ev) {
-}
-
-function onUp() {
-
-}
-
 function onRemoveLine() {
     if (confirm('you sure you want to delete this item?')) {
         removeLine()
@@ -152,16 +145,24 @@ function onSelectSection(page) {
     switch (page) {
         case 'gallery':
             openGallery()
-            onToggleMenu()
             break
-        case 'memes':
+        case 'meme':
             openSavedMemes()
-            onToggleMenu()
             break
         case 'about':
             openAbout()
-            onToggleMenu()
             break
     }
+    onToggleMenu()
 }
 
+function onSaveMeme() {
+    const memeOnGallery = gElCanvas.toDataURL()
+    saveMeme(memeOnGallery)
+    gIsMemeSave = false
+    alert('Meme saved!')
+}
+
+function getCtx() {
+    return gCtx
+}
