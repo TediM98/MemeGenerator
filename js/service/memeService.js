@@ -197,7 +197,6 @@ function _createLine(newLineNum) {
         font: 'Impact',
         pos: { x: newPos.x, y: newPos.y },
         isDrag: false,
-        url
     }
 }
 
